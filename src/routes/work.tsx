@@ -8,9 +8,9 @@ import p3 from "@/assets/project-3.jpg";
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
-      { title: "Work — Your Name" },
+      { title: "Work — Miroslav Ondroušek" },
       { name: "description", content: "Selected projects in software, data, and design." },
-      { property: "og:title", content: "Work — Your Name" },
+      { property: "og:title", content: "Work — Miroslav Ondroušek" },
       { property: "og:description", content: "Selected projects in software, data, and design." },
     ],
   }),
