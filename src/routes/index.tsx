@@ -40,9 +40,31 @@ const projects = [
 ];
 
 const experience = [
-  { role: "Senior Data Analyst", org: "Northwind Co.", time: "2023 — Present" },
-  { role: "Software Developer", org: "Bluestack", time: "2021 — 2023" },
-  { role: "Data Engineer (Intern)", org: "Initech", time: "2020 — 2021" },
+  {
+    role: "SW Global Insights Data Platforms",
+    org: "the LEGO Group · Billund, Denmark",
+    time: "Mar 2026 — Present",
+  },
+  {
+    role: "Software Developer",
+    org: "KLEMPOS-STŘECHY s.r.o · Prague, Czechia",
+    time: "Jul 2024 — Aug 2025",
+  },
+  {
+    role: "Software Engineer Intern",
+    org: "Blogic · Zlín, Czechia",
+    time: "May 2023 — Jun 2023",
+  },
+  {
+    role: "VR Department",
+    org: "Zlín Film Festival · Zlín, Czechia",
+    time: "May 2022 — May 2023",
+  },
+  {
+    role: "Frontend Developer (Intern)",
+    org: "Blogic · Zlín, Czechia",
+    time: "May 2022 — Jun 2022",
+  },
 ];
 
 function Index() {
