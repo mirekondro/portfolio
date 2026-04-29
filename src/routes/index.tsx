@@ -74,6 +74,8 @@ function Index() {
           <li key={p.name}>
             <a
               href={p.href}
+              target="_blank"
+              rel="noreferrer"
               className="group flex items-center justify-between gap-6 py-4 transition-colors"
             >
               <div>
