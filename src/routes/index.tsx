@@ -114,12 +114,22 @@ function Index() {
 
       <SectionHeading>Contact</SectionHeading>
       <p className="text-base leading-relaxed text-foreground/85">
-        Always open to interesting problems and collaborations. Reach me at{" "}
-        <a className="link-underline font-medium" href="mailto:hello@example.com">
-          hello@example.com
-        </a>
-        .
+        Always open to interesting problems and collaborations.
       </p>
+      <ul className="mt-4 space-y-2 text-sm">
+        <li className="flex items-baseline justify-between gap-4">
+          <span className="text-muted-foreground">Email</span>
+          <a className="link-underline font-medium" href="mailto:mirekondro@post.cz">
+            mirekondro@post.cz
+          </a>
+        </li>
+        <li className="flex items-baseline justify-between gap-4">
+          <span className="text-muted-foreground">Phone</span>
+          <a className="link-underline font-medium font-mono" href="tel:+4571651959">
+            +45 71 65 19 59
+          </a>
+        </li>
+      </ul>
     </Page>
   );
 }
