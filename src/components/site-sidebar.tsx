@@ -6,7 +6,6 @@ import {
   Mail,
   Github,
   Linkedin,
-  Twitter,
   Sun,
   Moon,
   Menu,
@@ -24,9 +23,8 @@ const nav = [
 
 const socials = [
   { href: "mailto:mirekondro@post.cz", label: "Email", icon: Mail },
-  { href: "https://github.com", label: "GitHub", icon: Github },
-  { href: "https://twitter.com", label: "X", icon: Twitter },
-  { href: "https://linkedin.com", label: "LinkedIn", icon: Linkedin },
+  { href: "https://github.com/mirekondro", label: "GitHub", icon: Github },
+  { href: "https://www.linkedin.com/in/mirekondro/", label: "LinkedIn", icon: Linkedin },
 ];
 
 function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
