@@ -23,19 +23,9 @@ export const Route = createFileRoute("/")({
 
 const projects = [
   {
-    name: "Pulse",
-    desc: "Realtime analytics dashboard with anomaly detection",
-    href: "#",
-  },
-  {
-    name: "Quill",
-    desc: "Editor that turns notes into structured datasets",
-    href: "#",
-  },
-  {
-    name: "Atlas",
-    desc: "Geospatial query engine for civic data",
-    href: "#",
+    name: "KNTXT",
+    desc: "Peer-to-peer terminal chat with local AI intent-analysis. No servers, no API keys, total privacy.",
+    href: "https://kntxt.dev/",
   },
 ];
 
