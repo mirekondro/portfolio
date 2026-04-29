@@ -23,7 +23,7 @@ const nav = [
 ] as const;
 
 const socials = [
-  { href: "mailto:hello@example.com", label: "Email", icon: Mail },
+  { href: "mailto:mirekondro@post.cz", label: "Email", icon: Mail },
   { href: "https://github.com", label: "GitHub", icon: Github },
   { href: "https://twitter.com", label: "X", icon: Twitter },
   { href: "https://linkedin.com", label: "LinkedIn", icon: Linkedin },
