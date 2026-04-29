@@ -2,7 +2,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home,
   Briefcase,
-  PenLine,
   Image as ImageIcon,
   Mail,
   Github,
@@ -20,7 +19,6 @@ import { useTheme } from "./theme-provider";
 const nav = [
   { to: "/", label: "Home", icon: Home },
   { to: "/work", label: "Work", icon: Briefcase },
-  { to: "/writing", label: "Writing", icon: PenLine },
   { to: "/gallery", label: "Gallery", icon: ImageIcon },
 ] as const;
 
