@@ -5,13 +5,13 @@ import { Page, SectionHeading } from "@/components/page";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your Name — Software Developer & Data Analyst" },
+      { title: "Miroslav Ondroušek — Software Developer & Data Analyst" },
       {
         name: "description",
         content:
           "Software developer and data analyst building thoughtful tools and clear data stories.",
       },
-      { property: "og:title", content: "Your Name — Software Developer & Data Analyst" },
+      { property: "og:title", content: "Miroslav Ondroušek — Software Developer & Data Analyst" },
       {
         property: "og:description",
         content: "Software developer and data analyst building thoughtful tools and clear data stories.",
@@ -48,7 +48,7 @@ const experience = [
 function Index() {
   return (
     <Page>
-      <h1 className="text-2xl font-semibold tracking-tight">Your Name</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Miroslav Ondroušek</h1>
       <p className="mt-1 text-muted-foreground">Software Developer & Data Analyst</p>
 
       <p className="mt-6 text-base leading-relaxed text-foreground/85">

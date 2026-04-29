@@ -7,9 +7,9 @@ import g4 from "@/assets/gallery-4.jpg";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Gallery — Your Name" },
+      { title: "Gallery — Miroslav Ondroušek" },
       { name: "description", content: "A small collection of photographs and visual experiments." },
-      { property: "og:title", content: "Gallery — Your Name" },
+      { property: "og:title", content: "Gallery — Miroslav Ondroušek" },
       { property: "og:description", content: "A small collection of photographs and visual experiments." },
     ],
   }),

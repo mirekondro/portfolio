@@ -45,7 +45,7 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
             className="h-10 w-10 rounded-full object-cover ring-1 ring-border"
           />
           <div className="leading-tight">
-            <div className="text-sm font-medium text-foreground">Your Name</div>
+            <div className="text-sm font-medium text-foreground">Miroslav Ondroušek</div>
             <div className="text-xs text-muted-foreground">Software Developer & Data Analyst</div>
           </div>
         </Link>
@@ -113,7 +113,7 @@ export function SiteSidebar() {
       {/* Mobile top bar */}
       <div className="md:hidden sticky top-0 z-40 flex items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur">
         <Link to="/" className="text-sm font-medium">
-          Your Name
+          Miroslav Ondroušek
         </Link>
         <button
           aria-label="Open menu"
