@@ -31,14 +31,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Miroslav Ondroušek - Portfolio" },
+      { name: "description", content: "A personal portfolio website showcasing projects, experience, and contact information." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Miroslav Ondroušek - Portfolio" },
+      { property: "og:description", content: "A personal portfolio website showcasing projects, experience, and contact information." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Miroslav Ondroušek - Portfolio" },
+      { name: "twitter:description", content: "A personal portfolio website showcasing projects, experience, and contact information." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/977825e7-7dd7-41e1-bc49-7b4e4947699b/id-preview-6cf854a5--e49adcbb-8b03-4ea7-960f-27d837841c83.lovable.app-1777502584466.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/977825e7-7dd7-41e1-bc49-7b4e4947699b/id-preview-6cf854a5--e49adcbb-8b03-4ea7-960f-27d837841c83.lovable.app-1777502584466.png" },
     ],
     links: [
       {
