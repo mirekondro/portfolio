@@ -1,6 +1,8 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { ThemeProvider } from "@/components/theme-provider";
+import { SiteSidebar } from "@/components/site-sidebar";
 
 function NotFoundComponent() {
   return (
@@ -65,5 +67,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <ThemeProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <SiteSidebar />
+        <main className="md:pl-64">
+          <Outlet />
+        </main>
+      </div>
+    </ThemeProvider>
+  );
 }
