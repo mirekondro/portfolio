@@ -40,7 +40,7 @@ function SidebarBody({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
-  const railIconClass = collapsed ? "h-[18px] w-[18px]" : "h-4 w-4";
+  const railIconClass = collapsed ? "h-5 w-5 shrink-0" : "h-4 w-4 shrink-0";
 
   return (
     <div className="flex h-full flex-col justify-between p-3 md:p-4">
@@ -81,7 +81,7 @@ function SidebarBody({
           <button
             onClick={onToggleCollapse}
             aria-label="Expand sidebar"
-            className="hidden md:flex mx-auto h-10 w-10 items-center justify-center rounded-md text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            className="hidden md:flex mx-auto h-11 w-11 items-center justify-center rounded-md text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
             <PanelLeftOpen className={railIconClass} strokeWidth={1.75} />
           </button>
@@ -97,7 +97,7 @@ function SidebarBody({
                 onClick={onNavigate}
                 title={collapsed ? label : undefined}
                 className={`group flex items-center rounded-md text-sm transition-colors ${
-                  collapsed ? "mx-auto h-10 w-10 justify-center px-0 py-0" : "gap-3 px-3 py-2"
+                  collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "gap-3 px-3 py-2"
                 } ${
                   active
                     ? "bg-sidebar-accent text-sidebar-accent-foreground"
@@ -122,7 +122,7 @@ function SidebarBody({
               rel="noreferrer"
               title={collapsed ? label : undefined}
               className={`group flex items-center rounded-md text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground ${
-                collapsed ? "mx-auto h-10 w-10 justify-center px-0 py-0" : "gap-3 px-3 py-2"
+                collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "gap-3 px-3 py-2"
               }`}
             >
               <Icon className={railIconClass} strokeWidth={1.75} />
@@ -136,7 +136,7 @@ function SidebarBody({
           aria-label="Toggle theme"
           title={collapsed ? (theme === "dark" ? "Light mode" : "Dark mode") : undefined}
           className={`flex items-center rounded-md text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground ${
-            collapsed ? "mx-auto h-10 w-10 justify-center px-0 py-0" : "w-full gap-3 px-3 py-2"
+            collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "w-full gap-3 px-3 py-2"
           }`}
         >
           {theme === "dark" ? (
@@ -212,7 +212,7 @@ export function SiteSidebar() {
       {/* Desktop fixed sidebar */}
       <aside
         className={`hidden md:block fixed inset-y-0 left-0 border-r border-sidebar-border bg-sidebar transition-[width] duration-200 ${
-          collapsed ? "w-16" : "w-64"
+          collapsed ? "w-20" : "w-64"
         }`}
       >
         <SidebarBody collapsed={collapsed} onToggleCollapse={toggleCollapse} />
