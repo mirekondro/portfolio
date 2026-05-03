@@ -60,23 +60,28 @@ const experience = [
 function Index() {
   return (
     <Page>
-      <h1 className="text-2xl font-semibold tracking-tight">Miroslav Ondroušek</h1>
-      <p className="mt-1 text-muted-foreground">Software Developer & Data Analyst</p>
+      <h1 className="text-2xl font-semibold tracking-tight slide-up">Miroslav Ondroušek</h1>
+      <p className="mt-1 text-muted-foreground slide-up" style={{ animationDelay: "0.08s" }}>
+        Software Developer & Data Analyst
+      </p>
 
-      <p className="mt-6 text-base leading-relaxed text-foreground/85">
+      <p
+        className="mt-6 text-base leading-relaxed text-foreground/85 slide-up"
+        style={{ animationDelay: "0.16s" }}
+      >
         I build software where data feels honest. My focus is on clean interfaces,
         reliable pipelines, and the small interactions that make a tool worth returning to.
       </p>
 
       <SectionHeading>What I'm working on</SectionHeading>
-      <ul className="divide-y divide-border border-y border-border">
+      <ul className="divide-y divide-border border-y border-border stagger">
         {projects.map((p) => (
           <li key={p.name}>
             <a
               href={p.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center justify-between gap-6 py-4 transition-colors"
+              className="group flex items-center justify-between gap-6 py-4 transition-colors hover-lift"
             >
               <div>
                 <div className="text-sm font-medium text-foreground">{p.name}</div>
@@ -92,9 +97,12 @@ function Index() {
       </ul>
 
       <SectionHeading>Experience</SectionHeading>
-      <ul className="space-y-3">
+      <ul className="space-y-3 stagger">
         {experience.map((e) => (
-          <li key={e.role} className="flex items-baseline justify-between gap-4 text-sm">
+          <li
+            key={e.role}
+            className="flex items-baseline justify-between gap-4 text-sm hover-lift"
+          >
             <div>
               <span className="font-medium text-foreground">{e.role}</span>
               <span className="text-muted-foreground"> · {e.org}</span>
