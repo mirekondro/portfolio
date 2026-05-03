@@ -10,8 +10,10 @@ import {
   Moon,
   Menu,
   X,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatar from "@/assets/avatar.jpg";
 import { useTheme } from "./theme-provider";
 
@@ -27,26 +29,62 @@ const socials = [
   { href: "https://www.linkedin.com/in/mirekondro/", label: "LinkedIn", icon: Linkedin },
 ];
 
-function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
+function SidebarBody({
+  onNavigate,
+  collapsed = false,
+  onToggleCollapse,
+}: {
+  onNavigate?: () => void;
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
+}) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
 
   return (
-    <div className="flex h-full flex-col justify-between p-6">
+    <div className="flex h-full flex-col justify-between p-3 md:p-4">
       <div className="space-y-8">
-        <Link to="/" onClick={onNavigate} className="flex items-center gap-3 group">
-          <img
-            src={avatar}
-            alt="Portrait"
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover ring-1 ring-border"
-          />
-          <div className="leading-tight">
-            <div className="text-sm font-medium text-foreground">Miroslav Ondroušek</div>
-            <div className="text-xs text-muted-foreground">Software Developer & Data Analyst</div>
-          </div>
-        </Link>
+        <div className={`flex items-center ${collapsed ? "justify-center" : "justify-between"} gap-2`}>
+          <Link
+            to="/"
+            onClick={onNavigate}
+            className={`group flex items-center gap-3 ${collapsed ? "justify-center" : ""}`}
+            title="Miroslav Ondroušek"
+          >
+            <img
+              src={avatar}
+              alt="Portrait"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full object-cover ring-1 ring-border"
+            />
+            {!collapsed && (
+              <div className="leading-tight">
+                <div className="text-sm font-medium text-foreground">Miroslav Ondroušek</div>
+                <div className="text-xs text-muted-foreground">Software Developer & Data Analyst</div>
+              </div>
+            )}
+          </Link>
+          {onToggleCollapse && !collapsed && (
+            <button
+              onClick={onToggleCollapse}
+              aria-label="Collapse sidebar"
+              className="hidden md:inline-flex rounded-md p-1.5 text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            >
+              <PanelLeftClose className="h-4 w-4" strokeWidth={1.75} />
+            </button>
+          )}
+        </div>
+
+        {onToggleCollapse && collapsed && (
+          <button
+            onClick={onToggleCollapse}
+            aria-label="Expand sidebar"
+            className="hidden md:flex w-full items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          >
+            <PanelLeftOpen className="h-4 w-4" strokeWidth={1.75} />
+          </button>
+        )}
 
         <nav className="flex flex-col gap-0.5">
           {nav.map(({ to, label, icon: Icon }) => {
@@ -56,14 +94,15 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
                 key={to}
                 to={to}
                 onClick={onNavigate}
-                className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors ${
+                title={collapsed ? label : undefined}
+                className={`group flex items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm transition-colors ${
                   active
                     ? "bg-sidebar-accent text-sidebar-accent-foreground"
                     : "text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
                 }`}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.75} />
-                <span>{label}</span>
+                {!collapsed && <span>{label}</span>}
               </Link>
             );
           })}
@@ -78,10 +117,11 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
               href={href}
               target={href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="group flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+              title={collapsed ? label : undefined}
+              className={`group flex items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground`}
             >
               <Icon className="h-4 w-4" strokeWidth={1.75} />
-              <span>{label}</span>
+              {!collapsed && <span>{label}</span>}
             </a>
           ))}
         </div>
@@ -89,14 +129,15 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
         <button
           onClick={toggle}
           aria-label="Toggle theme"
-          className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+          title={collapsed ? (theme === "dark" ? "Light mode" : "Dark mode") : undefined}
+          className={`flex w-full items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground`}
         >
           {theme === "dark" ? (
             <Sun className="h-4 w-4" strokeWidth={1.75} />
           ) : (
             <Moon className="h-4 w-4" strokeWidth={1.75} />
           )}
-          <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+          {!collapsed && <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>}
         </button>
       </div>
     </div>
@@ -105,6 +146,25 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
 
 export function SiteSidebar() {
   const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("sidebar-collapsed");
+    if (stored === "1") setCollapsed(true);
+  }, []);
+
+  const toggleCollapse = () => {
+    setCollapsed((c) => {
+      const next = !c;
+      localStorage.setItem("sidebar-collapsed", next ? "1" : "0");
+      document.documentElement.classList.toggle("sidebar-collapsed", next);
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("sidebar-collapsed", collapsed);
+  }, [collapsed]);
 
   return (
     <>
@@ -143,8 +203,12 @@ export function SiteSidebar() {
       )}
 
       {/* Desktop fixed sidebar */}
-      <aside className="hidden md:block fixed inset-y-0 left-0 w-64 border-r border-sidebar-border bg-sidebar">
-        <SidebarBody />
+      <aside
+        className={`hidden md:block fixed inset-y-0 left-0 border-r border-sidebar-border bg-sidebar transition-[width] duration-200 ${
+          collapsed ? "w-16" : "w-64"
+        }`}
+      >
+        <SidebarBody collapsed={collapsed} onToggleCollapse={toggleCollapse} />
       </aside>
     </>
   );
