@@ -101,7 +101,7 @@ function SidebarBody({
                     : "text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <Icon className={`${collapsed ? "h-6 w-6" : "h-4 w-4"}`} strokeWidth={1.75} />
+                <Icon className="h-4 w-4" strokeWidth={1.75} />
                 {!collapsed && <span>{label}</span>}
               </Link>
             );
@@ -120,7 +120,7 @@ function SidebarBody({
               title={collapsed ? label : undefined}
               className={`group flex items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground`}
             >
-              <Icon className={`${collapsed ? "h-6 w-6" : "h-4 w-4"}`} strokeWidth={1.75} />
+              <Icon className="h-4 w-4" strokeWidth={1.75} />
               {!collapsed && <span>{label}</span>}
             </a>
           ))}
@@ -133,9 +133,9 @@ function SidebarBody({
           className={`flex w-full items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground`}
         >
           {theme === "dark" ? (
-            <Sun className={`${collapsed ? "h-6 w-6" : "h-4 w-4"}`} strokeWidth={1.75} />
+            <Sun className="h-4 w-4" strokeWidth={1.75} />
           ) : (
-            <Moon className={`${collapsed ? "h-6 w-6" : "h-4 w-4"}`} strokeWidth={1.75} />
+            <Moon className="h-4 w-4" strokeWidth={1.75} />
           )}
           {!collapsed && <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>}
         </button>
