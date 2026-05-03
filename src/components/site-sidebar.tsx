@@ -40,7 +40,8 @@ function SidebarBody({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
-  const railIconClass = collapsed ? "h-5 w-5 shrink-0" : "h-4 w-4 shrink-0";
+  const railIconClass = collapsed ? "h-6 w-6 shrink-0" : "h-4 w-4 shrink-0";
+  const railStrokeWidth = collapsed ? 2.1 : 1.75;
 
   return (
     <div className="flex h-full flex-col justify-between p-3 md:p-4">
@@ -83,7 +84,7 @@ function SidebarBody({
             aria-label="Expand sidebar"
             className="hidden md:flex mx-auto h-11 w-11 items-center justify-center rounded-md text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
-            <PanelLeftOpen className={railIconClass} strokeWidth={1.75} />
+            <PanelLeftOpen className={railIconClass} strokeWidth={railStrokeWidth} />
           </button>
         )}
 
@@ -104,7 +105,7 @@ function SidebarBody({
                     : "text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <Icon className={railIconClass} strokeWidth={1.75} />
+                <Icon className={railIconClass} strokeWidth={railStrokeWidth} />
                 {!collapsed && <span>{label}</span>}
               </Link>
             );
@@ -125,7 +126,7 @@ function SidebarBody({
                 collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "gap-3 px-3 py-2"
               }`}
             >
-              <Icon className={railIconClass} strokeWidth={1.75} />
+              <Icon className={railIconClass} strokeWidth={railStrokeWidth} />
               {!collapsed && <span>{label}</span>}
             </a>
           ))}
@@ -140,9 +141,9 @@ function SidebarBody({
           }`}
         >
           {theme === "dark" ? (
-            <Sun className={railIconClass} strokeWidth={1.75} />
+            <Sun className={railIconClass} strokeWidth={railStrokeWidth} />
           ) : (
-            <Moon className={railIconClass} strokeWidth={1.75} />
+            <Moon className={railIconClass} strokeWidth={railStrokeWidth} />
           )}
           {!collapsed && <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>}
         </button>
