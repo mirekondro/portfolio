@@ -75,7 +75,7 @@ function RootComponent() {
     <ThemeProvider>
       <div className="min-h-screen bg-background text-foreground">
         <SiteSidebar />
-        <main className="md:pl-64 [.sidebar-collapsed_&]:md:pl-16 transition-[padding] duration-200">
+        <main className="md:pl-64 [.sidebar-collapsed_&]:md:pl-20 transition-[padding] duration-200">
           <Outlet />
         </main>
       </div>

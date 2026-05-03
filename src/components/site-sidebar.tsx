@@ -40,6 +40,8 @@ function SidebarBody({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
+  const railIconClass = collapsed ? "h-6 w-6 shrink-0" : "h-4 w-4 shrink-0";
+  const railStrokeWidth = collapsed ? 2.1 : 1.75;
 
   return (
     <div className="flex h-full flex-col justify-between p-3 md:p-4">
@@ -80,9 +82,9 @@ function SidebarBody({
           <button
             onClick={onToggleCollapse}
             aria-label="Expand sidebar"
-            className="hidden md:flex w-full items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            className="hidden md:flex mx-auto h-11 w-11 items-center justify-center rounded-md text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
-            <PanelLeftOpen className="h-4 w-4" strokeWidth={1.75} />
+            <PanelLeftOpen className={railIconClass} strokeWidth={railStrokeWidth} />
           </button>
         )}
 
@@ -95,13 +97,15 @@ function SidebarBody({
                 to={to}
                 onClick={onNavigate}
                 title={collapsed ? label : undefined}
-                className={`group flex items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm transition-colors ${
+                className={`group flex items-center rounded-md text-sm transition-colors ${
+                  collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "gap-3 px-3 py-2"
+                } ${
                   active
                     ? "bg-sidebar-accent text-sidebar-accent-foreground"
                     : "text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <Icon className="h-4 w-4" strokeWidth={1.75} />
+                <Icon className={railIconClass} strokeWidth={railStrokeWidth} />
                 {!collapsed && <span>{label}</span>}
               </Link>
             );
@@ -118,9 +122,11 @@ function SidebarBody({
               target={href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
               title={collapsed ? label : undefined}
-              className={`group flex items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground`}
+              className={`group flex items-center rounded-md text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground ${
+                collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "gap-3 px-3 py-2"
+              }`}
             >
-              <Icon className="h-4 w-4" strokeWidth={1.75} />
+              <Icon className={railIconClass} strokeWidth={railStrokeWidth} />
               {!collapsed && <span>{label}</span>}
             </a>
           ))}
@@ -130,12 +136,14 @@ function SidebarBody({
           onClick={toggle}
           aria-label="Toggle theme"
           title={collapsed ? (theme === "dark" ? "Light mode" : "Dark mode") : undefined}
-          className={`flex w-full items-center ${collapsed ? "justify-center" : "gap-3"} rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground`}
+          className={`flex items-center rounded-md text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground ${
+            collapsed ? "mx-auto h-11 w-11 justify-center px-0 py-0" : "w-full gap-3 px-3 py-2"
+          }`}
         >
           {theme === "dark" ? (
-            <Sun className="h-4 w-4" strokeWidth={1.75} />
+            <Sun className={railIconClass} strokeWidth={railStrokeWidth} />
           ) : (
-            <Moon className="h-4 w-4" strokeWidth={1.75} />
+            <Moon className={railIconClass} strokeWidth={railStrokeWidth} />
           )}
           {!collapsed && <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>}
         </button>
@@ -205,7 +213,7 @@ export function SiteSidebar() {
       {/* Desktop fixed sidebar */}
       <aside
         className={`hidden md:block fixed inset-y-0 left-0 border-r border-sidebar-border bg-sidebar transition-[width] duration-200 ${
-          collapsed ? "w-16" : "w-64"
+          collapsed ? "w-20" : "w-64"
         }`}
       >
         <SidebarBody collapsed={collapsed} onToggleCollapse={toggleCollapse} />
