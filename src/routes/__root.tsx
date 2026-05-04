@@ -3,6 +3,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteSidebar } from "@/components/site-sidebar";
+import { InteractiveBackground } from "@/components/interactive-background";
 
 function NotFoundComponent() {
   return (
@@ -74,6 +75,7 @@ function RootComponent() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background text-foreground">
+        <InteractiveBackground />
         <SiteSidebar />
         <main className="md:pl-64 [.sidebar-collapsed_&]:md:pl-20 transition-[padding] duration-200">
           <Outlet />
