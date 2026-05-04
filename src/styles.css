@@ -188,8 +188,41 @@
     }
   }
 
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.45;
+    will-change: transform;
+  }
+  .blob-1 {
+    width: 480px;
+    height: 480px;
+    top: -120px;
+    left: -120px;
+    background: radial-gradient(circle, color-mix(in oklab, var(--foreground) 12%, transparent), transparent 70%);
+    animation: float1 18s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 520px;
+    height: 520px;
+    bottom: -160px;
+    right: -160px;
+    background: radial-gradient(circle, color-mix(in oklab, var(--foreground) 10%, transparent), transparent 70%);
+    animation: float2 22s ease-in-out infinite;
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, 40px) scale(1.1); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-50px, -30px) scale(1.08); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .fade-in, .slide-up, .stagger > *, .hover-lift {
+    .fade-in, .slide-up, .stagger > *, .hover-lift, .blob {
       animation: none !important;
       transition: none !important;
     }
