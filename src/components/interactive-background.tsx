@@ -60,6 +60,9 @@ export function InteractiveBackground() {
 
     const tick = () => {
       t += 1;
+      // smooth easing toward latest pointer/touch target
+      mouse.current.x += (target.x - mouse.current.x) * 0.08;
+      mouse.current.y += (target.y - mouse.current.y) * 0.08;
       ctx.clearRect(0, 0, width, height);
       const dark = isDark();
       const base = dark ? "245,245,240" : "20,20,18";
