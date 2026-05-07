@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 export function InteractiveBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ x: -1000, y: -1000 });
+  const mouse = useRef({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,84 +25,76 @@ export function InteractiveBackground() {
     };
     resize();
 
-    const isDark = () =>
-      document.documentElement.classList.contains("dark");
-
-    type P = { x: number; y: number; vx: number; vy: number; r: number };
-    const count = Math.min(90, Math.floor((width * height) / 18000));
-    const particles: P[] = Array.from({ length: count }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.6 + 0.4,
-    }));
+    const isDark = () => document.documentElement.classList.contains("dark");
 
     const onMove = (e: MouseEvent) => {
-      mouse.current.x = e.clientX;
-      mouse.current.y = e.clientY;
-    };
-    const onLeave = () => {
-      mouse.current.x = -1000;
-      mouse.current.y = -1000;
+      mouse.current.x = e.clientX / window.innerWidth;
+      mouse.current.y = e.clientY / window.innerHeight;
     };
 
+    type Wave = {
+      amp: number;
+      len: number;
+      speed: number;
+      yOff: number;
+      phase: number;
+      alpha: number;
+    };
+
+    const waves: Wave[] = [
+      { amp: 38, len: 0.0042, speed: 0.0009, yOff: 0.55, phase: 0, alpha: 0.16 },
+      { amp: 52, len: 0.0028, speed: 0.0012, yOff: 0.65, phase: 1.2, alpha: 0.14 },
+      { amp: 30, len: 0.006, speed: 0.0016, yOff: 0.72, phase: 2.4, alpha: 0.12 },
+      { amp: 64, len: 0.0021, speed: 0.0007, yOff: 0.82, phase: 0.7, alpha: 0.18 },
+      { amp: 24, len: 0.008, speed: 0.0022, yOff: 0.45, phase: 3.1, alpha: 0.1 },
+    ];
+
+    let t = 0;
     let raf = 0;
+
     const tick = () => {
+      t += 1;
       ctx.clearRect(0, 0, width, height);
       const dark = isDark();
-      const dotColor = dark ? "rgba(245,245,240," : "rgba(20,20,18,";
-      const lineColor = dark ? "rgba(245,245,240," : "rgba(20,20,18,";
+      const base = dark ? "245,245,240" : "20,20,18";
 
-      // Update + draw particles
-      for (const p of particles) {
-        // Mouse repulsion
-        const dx = p.x - mouse.current.x;
-        const dy = p.y - mouse.current.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < 140 * 140) {
-          const d = Math.sqrt(d2) || 1;
-          const force = (140 - d) / 140;
-          p.vx += (dx / d) * force * 0.6;
-          p.vy += (dy / d) * force * 0.6;
-        }
+      const mx = mouse.current.x;
+      const my = mouse.current.y;
 
-        p.vx *= 0.96;
-        p.vy *= 0.96;
-        p.vx += (Math.random() - 0.5) * 0.02;
-        p.vy += (Math.random() - 0.5) * 0.02;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
-
-        ctx.fillStyle = dotColor + "0.55)";
+      for (const w of waves) {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
+        ctx.moveTo(0, height);
+        const yBase = height * (w.yOff + (my - 0.5) * 0.06);
+        const ampMod = w.amp * (1 + (mx - 0.5) * 0.4);
 
-      // Connecting lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i];
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < 120 * 120) {
-            const alpha = (1 - Math.sqrt(d2) / 120) * 0.25;
-            ctx.strokeStyle = lineColor + alpha + ")";
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
+        for (let x = 0; x <= width; x += 6) {
+          const y =
+            yBase +
+            Math.sin(x * w.len + t * w.speed + w.phase) * ampMod +
+            Math.sin(x * w.len * 2.1 + t * w.speed * 1.6) * (ampMod * 0.25);
+          ctx.lineTo(x, y);
         }
+        ctx.lineTo(width, height);
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, yBase - w.amp, 0, height);
+        grad.addColorStop(0, `rgba(${base},${w.alpha})`);
+        grad.addColorStop(1, `rgba(${base},0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        ctx.strokeStyle = `rgba(${base},${Math.min(w.alpha * 1.6, 0.35)})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let x = 0; x <= width; x += 6) {
+          const y =
+            yBase +
+            Math.sin(x * w.len + t * w.speed + w.phase) * ampMod +
+            Math.sin(x * w.len * 2.1 + t * w.speed * 1.6) * (ampMod * 0.25);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
       }
 
       raf = requestAnimationFrame(tick);
@@ -110,14 +102,12 @@ export function InteractiveBackground() {
 
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseleave", onLeave);
     raf = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
