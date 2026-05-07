@@ -27,9 +27,15 @@ export function InteractiveBackground() {
 
     const isDark = () => document.documentElement.classList.contains("dark");
 
-    const onMove = (e: MouseEvent) => {
-      mouse.current.x = e.clientX / window.innerWidth;
-      mouse.current.y = e.clientY / window.innerHeight;
+    const target = { x: 0.5, y: 0.5 };
+    const setTarget = (cx: number, cy: number) => {
+      target.x = cx / window.innerWidth;
+      target.y = cy / window.innerHeight;
+    };
+    const onMove = (e: MouseEvent) => setTarget(e.clientX, e.clientY);
+    const onTouch = (e: TouchEvent) => {
+      const t = e.touches[0] ?? e.changedTouches[0];
+      if (t) setTarget(t.clientX, t.clientY);
     };
 
     type Wave = {
