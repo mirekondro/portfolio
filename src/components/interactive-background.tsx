@@ -106,17 +106,15 @@ export function InteractiveBackground() {
     };
 
     window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("touchstart", onTouch, { passive: true });
-    window.addEventListener("touchmove", onTouch, { passive: true });
+    window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("pointerdown", onPointer, { passive: true });
     raf = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("touchstart", onTouch);
-      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("pointermove", onPointer);
+      window.removeEventListener("pointerdown", onPointer);
     };
   }, []);
 
