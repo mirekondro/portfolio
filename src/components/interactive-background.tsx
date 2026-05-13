@@ -32,11 +32,7 @@ export function InteractiveBackground() {
       target.x = cx / window.innerWidth;
       target.y = cy / window.innerHeight;
     };
-    const onMove = (e: MouseEvent) => setTarget(e.clientX, e.clientY);
-    const onTouch = (e: TouchEvent) => {
-      const t = e.touches[0] ?? e.changedTouches[0];
-      if (t) setTarget(t.clientX, t.clientY);
-    };
+    const onPointer = (e: PointerEvent) => setTarget(e.clientX, e.clientY);
 
     type Wave = {
       amp: number;
